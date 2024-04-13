@@ -6,21 +6,24 @@ import { Modal, Text, Progress, Table } from '@nextui-org/react';
 import ReactGA from 'react-ga4';
 
 const dummyTable = [
-    ['Machine', 'MinhDepTrai-Machine'],
-    ['Server', 'MinhDepTrai-Server'],
+    ['Machine', 'MinhDevTree-Machine'],
+    ['Server', 'MinhDevTree-Server'],
     ['Duration', '60 minutes'],
     ['Q mark', '1'],
-    ['Student', 'Minh Dep Trai'],
+    ['Student', 'MinhDevTree'],
     ['Exam Code', '- - - - -'],
     ['Open Code', '- - - - -'],
     ['Total Mark', '30'],
 ];
 
 const generateAnswer = question => {
+    console.log('question ', question);
     const lastChoice = question.question
         .split('\n')
-        [question.question.split('\n').length - 1].charAt(0)
+        [question.question.split('\n').length - 1].trim()
+        .charAt(0)
         .toUpperCase();
+    console.log('lastChoice ', lastChoice);
     const selectList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L'];
     let realList = [];
     for (let i = 0; i < selectList.length; i++) {
@@ -41,7 +44,7 @@ const getRamdom = (id, quantity) => {
         : '- - - - -';
     const arrayQuestion = JSON.parse(localStorage.getItem(id))
         .data.map(item => {
-            item.answer = item.answer.trim().toUpperCase();
+            item.answer = item.answer.trim().charAt(0).toUpperCase();
             item.choose = undefined;
             return item;
         })
@@ -184,7 +187,15 @@ const Exam = () => {
                                     item => item.choose === item.answer
                                 ).length
                             }{' '}
-                            / {listQuestion.length}
+                            / {listQuestion.length} (
+                            {Math.round(
+                                (listQuestion.filter(
+                                    item => item.choose === item.answer
+                                ).length /
+                                    listQuestion.length) *
+                                    1000
+                            ) / 100}{' '}
+                            / 10 )
                         </Text>
                     </Text>
                 </Modal.Header>
@@ -422,7 +433,21 @@ const Exam = () => {
                                 </strong>
                             </div>
                             <div className={classes.bodyQuestionContent}>
-                                {listQuestion[indexQuestion].question}
+                                <div style={{ fontWeight: 'bold' }}>
+                                    {listQuestion[indexQuestion].question.slice(
+                                        0,
+                                        listQuestion[
+                                            indexQuestion
+                                        ].question.indexOf('\n')
+                                    )}
+                                </div>
+                                <div>
+                                    {listQuestion[indexQuestion].question.slice(
+                                        listQuestion[
+                                            indexQuestion
+                                        ].question.indexOf('\n')
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
