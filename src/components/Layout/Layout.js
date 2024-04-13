@@ -16,10 +16,10 @@ const Layout = () => {
                 Modded © {new Date().getFullYear()}{' '}
                 <LinkNextUI
                     target={'_blank'}
-                    href="https://github.com/MinhDepTraiBoDoiQua"
+                    href="https://github.com/minhdevtree/quiz-learn"
                     color={'text'}
                 >
-                    <strong>MinhDepTraiBoDoiQua</strong>
+                    <strong>minhdevtree</strong>
                 </LinkNextUI>
             </Text>
             <Text size={10} css={{ textAlign: 'center' }}>
