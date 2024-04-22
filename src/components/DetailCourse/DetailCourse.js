@@ -154,7 +154,7 @@ const DetailCourse = () => {
         const regex = /^[0-9]*$/;
         if (regex.test(quantity)) {
             const number = Number.parseInt(quantity);
-            if (number > 0 && number <= 100) {
+            if (number > 0 && number <= 120) {
                 const temp1 = JSON.parse(localStorage.getItem(id));
                 if (temp1.name.includes('multiple')) {
                     navigate('/course/pmg/' + id + '/exam', {
@@ -200,7 +200,7 @@ const DetailCourse = () => {
                             margin: '0 auto',
                         }}
                     >
-                        Only accept number from 1 to 100
+                        Only accept number from 1 to 120
                     </Text>
                     <Input
                         width={'auto'}
